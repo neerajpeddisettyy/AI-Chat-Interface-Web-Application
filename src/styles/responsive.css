@@ -1,0 +1,72 @@
+/* 
+  styles/responsive.css
+  Responsive breakpoints for tablet and mobile screens.
+
+  The chat shell always stays 100vw × 100vh.
+  Only spacing, font sizes, and bubble widths are adjusted
+  so the layout stays comfortable on small screens.
+
+  BREAKPOINTS:
+   ─ ≤ 768 px  →  tablet adjustments
+   ─ ≤ 480 px  →  mobile adjustments
+*/
+
+/* Tablet  (max-width: 768 px) */
+@media (max-width: 768px) {
+
+  /* Tighten horizontal padding in the header  */
+  .chat-header   { padding: 12px 18px; }
+
+  /* Reduce side padding in the message area  */
+  .chat-messages { padding: 20px 18px; }
+
+  /* Tighten footer padding  */
+  .chat-footer   { padding: 12px 18px 16px; }
+
+  /* Tighten quick-reply chip row padding  */
+  .quick-replies { padding: 8px 18px 0; }
+
+  /* Allow bubbles to be slightly wider on tablet  */
+  .msg-col       { max-width: 78%; }
+
+  /* Reduce auth card padding on smaller screens */
+  .auth-card     { padding: 32px 24px; }
+}
+
+/* ── Mobile  (max-width: 480 px) */
+@media (max-width: 480px) {
+
+  /* Very compact header padding on phones  */
+  .chat-header   { padding: 10px 12px; }
+
+  /* Minimal side padding — maximise readable width */
+  .chat-messages { padding: 14px 12px; }
+
+  /* Tight footer on phones  */
+  .chat-footer   { padding: 10px 12px 14px; }
+
+  /* Chips stack tighter and slightly smaller text  */
+  .quick-replies    { padding: 8px 12px 0; gap: 6px; }
+  .quick-reply-btn  { font-size: 12px; padding: 5px 10px; }
+
+  /* Slightly smaller bot name on phones  */
+  .chat-header-name { font-size: 15px; }
+
+  /* Wider bubbles — phones have very little horizontal space  */
+  .msg-col          { max-width: 86%; }
+
+  /* Slightly smaller message font  */
+  .msg-bubble       { font-size: 13.5px; }
+
+  /* Smaller welcome card heading  */
+  .welcome-title    { font-size: 21px; }
+  .welcome-card     { padding: 24px 14px; }
+
+  /* Slightly smaller send button on phones */
+  .send-btn         { width: 40px; height: 40px; }
+
+  /* Tighter auth card on phones  */
+  .auth-card        { padding: 28px 18px; border-radius: var(--r-md); }
+  .auth-brand-icon  { width: 44px; height: 44px; }
+  .auth-brand-name  { font-size: 19px; }
+}

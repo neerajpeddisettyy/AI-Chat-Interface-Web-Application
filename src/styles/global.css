@@ -1,0 +1,118 @@
+/*
+   styles/global.css
+   ─ Google Fonts import
+   ─ Universal box-model reset
+   ─ CSS design tokens for LIGHT theme  (:root)
+   ─ CSS design token overrides for DARK theme ([data-theme="dark"])
+   ─ Base body styles
+*/
+
+/* Load three font families from Google Fonts:
+   Instrument Serif → decorative italic headings / bot name
+   Geist            → all body copy and UI labels
+   Geist Mono       → code blocks and monospaced text          */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap');
+
+/* Reset
+   Every element uses border-box sizing.
+   Strip all default browser margin and padding.
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Design Tokens — LIGHT THEME (default)
+   All colours, shadows, radii and font stacks live here as
+   CSS custom properties. Edit these to retheme the entire app
+   from a single place. */
+:root {
+  /* Page and layered surface backgrounds */
+  --bg:        #F7F6F3;   /* warm off-white page background    */
+  --surface:   #FFFFFF;   /* card / panel surface              */
+  --surface-2: #F0EEE9;   /* darker surface for hover fills    */
+
+  /* Border strengths */
+  --border:    #E4E1DA;   /* default soft border               */
+  --border-2:  #D0CCC3;   /* stronger border on hover          */
+
+  /* Text hierarchy — three levels of visual weight */
+  --text-primary:   #1A1916;
+  --text-secondary: #6B6760;
+  --text-muted:     #A09D98;
+
+  /* Brand / accent green */
+  --accent:       #1A6B4A;
+  --accent-light: #E8F5EE;  /* pale tint for backgrounds       */
+  --accent-hover: #155A3D;  /* darker shade for hover states   */
+
+  /* Message bubble colours */
+  --user-bg:    #1A1916;   /* user bubble — dark background    */
+  --user-text:  #F7F6F3;   /* user bubble — light text         */
+  --bot-bg:     #FFFFFF;   /* bot bubble — white background    */
+  --bot-border: #E4E1DA;   /* bot bubble — soft border         */
+
+  /* Code block surface */
+  --code-bg:     #F0EEE9;
+  --code-border: #D0CCC3;
+
+  /* Elevation shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.06);
+
+  /* Border-radius scale */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+
+  /* Font stacks */
+  --font-sans:  'Geist', system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-mono:  'Geist Mono', 'Fira Code', monospace;
+
+  /* Shared transition speed + easing used throughout the UI  */
+  --t: 160ms cubic-bezier(.4, 0, .2, 1);
+}
+
+/* Design Token Overrides — DARK THEME
+   Applied when the root element has [data-theme="dark"].
+   Only the tokens that change from the light defaults are listed. */
+[data-theme="dark"] {
+  --bg:        #0F0F0F;
+  --surface:   #1A1A1A;
+  --surface-2: #242424;
+
+  --border:    #2E2E2E;
+  --border-2:  #3A3A3A;
+
+  --text-primary:   #F0F0F0;
+  --text-secondary: #A0A0A0;
+  --text-muted:     #606060;
+
+  --accent:       #34C77B;
+  --accent-light: #0D2B1A;
+  --accent-hover: #28A364;
+
+  --user-bg:    #2A2A2A;
+  --user-text:  #F0F0F0;
+  --bot-bg:     #1A1A1A;
+  --bot-border: #2E2E2E;
+
+  --code-bg:     #242424;
+  --code-border: #3A3A3A;
+}
+
+/* Base body
+   Apply base font and background colour to the document body.
+   Smooth transition so dark/light switch animates. */
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text-primary);
+  transition: background var(--t), color var(--t);
+}

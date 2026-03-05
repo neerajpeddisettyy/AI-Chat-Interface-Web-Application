@@ -1,0 +1,278 @@
+/*
+   styles/components.css
+   Styles for smaller reusable UI components.
+
+   STRUCTURE:
+   ─ Code blocks      (.code-block, .code-block-header, .code-lang,
+                        .copy-btn, .code-block pre, .inline-code)
+   ─ Typing indicator (.typing-row, .typing-bubble, .typing-dot)
+   ─ Quick replies    (.quick-replies, .quick-reply-btn)
+   ─ Input footer     (.chat-footer, .input-row, .input-wrapper,
+                        .chat-input, .char-counter, .send-btn,
+                        .footer-hint)
+*/
+
+/* Code Block */
+/* Rendered by <CodeBlock> for fenced ``` … ``` sections.
+   Contains a header bar (language + copy button) and a <pre>. */
+
+.code-block {
+  position: relative;
+  margin: 8px 0;
+  border-radius: var(--r-sm);
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  overflow: hidden;  /* clips header background to rounded corners */
+  transition: background var(--t), border-color var(--t);
+}
+
+/* Top bar of the code block                                   */
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 12px 6px;
+  background: var(--border);
+  border-bottom: 1px solid var(--code-border);
+}
+
+/* Language label — e.g. "JAVASCRIPT"                         */
+.code-lang {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-family: var(--font-mono);
+}
+
+/* Copy-to-clipboard button inside the header                 */
+.copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  transition: all var(--t);
+}
+.copy-btn:hover { background: var(--border-2); color: var(--text-primary); }
+
+/* Scrollable code content — white-space:pre preserves indentation */
+.code-block pre {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 12px 14px;
+  overflow-x: auto;
+  color: var(--text-primary);
+  white-space: pre;
+}
+
+/* Single-backtick inline code within markdown text           */
+.inline-code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  padding: 1px 5px;
+  border-radius: 4px;
+  color: var(--accent-hover);
+}
+
+/* Typing Indicator */
+/* Three dots that bounce in sequence while the bot is typing */
+
+.typing-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  animation: msg-in .22s cubic-bezier(.34,1.2,.64,1) both;
+}
+
+.typing-bubble {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 16px;
+  background: var(--bot-bg);
+  border: 1px solid var(--bot-border);
+  border-radius: var(--r-md) var(--r-md) var(--r-md) 4px;
+  box-shadow: var(--shadow-sm);
+  transition: background var(--t), border-color var(--t);
+}
+
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  animation: typing-bounce 1.3s ease-in-out infinite;
+}
+/* Stagger each dot so they bounce one after another */
+.typing-dot:nth-child(1) { animation-delay: 0s; }
+.typing-dot:nth-child(2) { animation-delay: .18s; }
+.typing-dot:nth-child(3) { animation-delay: .36s; }
+
+/* Bounce animation for typing dots  */
+@keyframes typing-bounce {
+  0%,60%,100% { transform: translateY(0); }
+  30%         { transform: translateY(-5px); }
+}
+
+/* Quick Replies */
+/* Pill-shaped suggestion chips shown above the input bar */
+
+.quick-replies {
+  padding: 10px 24px 0;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  transition: border-color var(--t);
+}
+
+/* "SUGGESTIONS" label above the chips */
+.quick-replies-label {
+  width: 100%;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin-bottom: 2px;
+}
+
+.quick-reply-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--t);
+  font-family: var(--font-sans);
+  white-space: nowrap;
+}
+.quick-reply-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-light);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(26,107,74,.12);
+}
+.quick-reply-btn:active { transform: translateY(0); }
+
+/* Input Footer */
+/* Sticky bottom bar — holds quick replies, textarea, send btn */
+
+.chat-footer {
+  position: sticky;
+  bottom: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 14px 24px 18px;
+  z-index: 20;
+  flex-shrink: 0;  /* footer never compresses when viewport shrinks */
+  transition: background var(--t), border-color var(--t);
+}
+
+/* Row aligning the pill wrapper with the circular send button */
+.input-row { display: flex; align-items: flex-end; gap: 10px; }
+
+/* Rounded pill that wraps the textarea and char counter       */
+.input-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-xl);
+  transition: border-color var(--t), box-shadow var(--t), background var(--t);
+  overflow: hidden;
+}
+/* Green ring when the textarea is focused */
+.input-wrapper:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(26,107,74,.08);
+}
+
+/* Auto-growing textarea (JS handles height change) */
+.chat-input {
+  flex: 1;
+  min-height: 44px;
+  max-height: 140px;
+  padding: 11px 16px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14.5px;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.55;
+  resize: none;
+  overflow-y: auto;
+}
+.chat-input::placeholder { color: var(--text-muted); }
+.chat-input::-webkit-scrollbar       { width: 3px; }
+.chat-input::-webkit-scrollbar-thumb { background: var(--border-2); }
+
+/* Character counter — visible after 80 % of limit is reached */
+.char-counter {
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 0 12px 10px 0;
+  align-self: flex-end;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+}
+/* Orange when near the hard limit */
+.char-counter.warn { color: #C45200; }
+
+/* Circular send button */
+.send-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  transition: all var(--t);
+  box-shadow: 0 2px 8px rgba(26,107,74,.30);
+}
+.send-btn:hover:not(:disabled) {
+  background: var(--accent-hover);
+  transform: scale(1.06);
+  box-shadow: 0 4px 14px rgba(26,107,74,.35);
+}
+.send-btn:active:not(:disabled) { transform: scale(.95); }
+.send-btn:disabled {
+  background: var(--border-2);
+  box-shadow: none;
+  cursor: not-allowed;
+  color: var(--text-muted);
+}
+
+/* Keyboard hint line below the textarea */
+.footer-hint {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
